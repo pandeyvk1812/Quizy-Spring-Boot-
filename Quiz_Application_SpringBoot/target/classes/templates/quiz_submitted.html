@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Submitted</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(254, 205, 165);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .content {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 10px 4px 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid #000000;
+        }
+
+        h4 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: rgb(251, 105, 98);
+        }
+
+        .failed {
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        .form-check-label {
+            font-size: 16px;
+        }
+
+        .btn-success {
+            background-color: rgb(251, 105, 98);
+            color: #ffffff;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-success:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="content">
+    <h4>QUIZ SUBMITTED</h4>
+    <p>Your quiz has been submitted successfully. Thank you for participating!</p>
+    <a href="/candidate/dashboard" class="btn-success">Back to Dashboard</a>
+  </div>
+</div>
+</body>
+</html>

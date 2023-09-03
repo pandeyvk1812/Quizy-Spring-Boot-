@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Application</title>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(254,205,165);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.content {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 10 4px 10px rgba(0, 0, 0, 0.1);
+    border: 5px solid #000000;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: rgb(251,105,98);
+}
+
+p {
+    font-size: 18px;
+    color: #000000;
+    margin-bottom: 40px;
+}
+
+.continue-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: rgb(251,105,98) ;
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.continue-button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <h1>Welcome to QUIZY!</h1>
+        <p>Are you ready to challenge your knowledge!!?</p>
+        <a  th:href="@{/register}" class="continue-button">Register</a>
+        <a  th:href="@{/host/dashboard}" class="continue-button">Host Dashboard</a>
+        <a  th:href="@{/candidate/dashboard}" class="continue-button">Candidate Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

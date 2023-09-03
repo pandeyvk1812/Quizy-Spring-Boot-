@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Candidate Dashboard</title>
+    <style>
+    .continue-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: rgb(251,105,98) ;
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.continue-button:hover {
+    background-color: #0056b3;
+}
+
+.continue-button:hover {
+    background-color: #0056b3;
+}
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: rgb(251,105,98);
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(254,205,165);
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.content {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 10 4px 10px rgba(0, 0, 0, 0.1);
+    border: 5px solid #000000;
+}
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <h1>CANDIDATE DASHBOARD</h1>
+        <a  th:href="@{/candidate/attemptQuiz}" class="continue-button">Attempt Quiz</a><br><br>
+
+        <form action="#" th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout">
+
+            <div th:if="${param.logout}">
+                <i class="failed"> Logged Out</i>
+            </div>
+        </form>
+
+        <div><a  th:href="@{/show-Change-Password}" class="continue-button">Change Password</a></div>
+
+    </div>
+</div>
+
+</body>
+</html>

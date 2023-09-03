@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(254, 205, 165);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .content {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 10px 4px 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid #000000;
+            max-width: 400px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: rgb(251, 105, 98);
+        }
+
+        p {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 30px;
+        }
+
+        .continue-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: rgb(251, 105, 98);
+            color: #ffffff;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .continue-button:hover {
+            background-color: #0056b3;
+        }
+
+        .failed {
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-check-label {
+            font-size: 16px;
+        }
+
+        .form-check-input {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div th:if="${successMessage}" class="alert alert-info">
+                <p th:text="${successMessage}"></p>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div class="content">
+                <h2>User Registration</h2>
+                <form th:action="@{/registration}" th:object="${user}" method="post">
+                    <div class="form-group">
+                        <label class="control-label" for="name">Name:</label>
+                        <input id="name" class="form-control" type="text" th:field="*{name}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="email">Email:</label>
+                        <input id="email" class="form-control" type="text" th:field="*{email}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password">Password:</label>
+                        <input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Role:</label>
+                        <select class="form-control" th:field="*{role}">
+                            <option value="ROLE_CANDIDATE">CANDIDATE</option>
+                            <option value="ROLE_HOST">HOST</option>
+                        </select>
+                        <div class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" required autofocus="autofocus">
+                        <label class="form-check-label" for="exampleCheck1">Agree terms and conditions</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="continue-button">Register</button>
+                        <span>Already registered? <a href="/" th:href="@{/signin}" class="btn btn-success">Login here</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

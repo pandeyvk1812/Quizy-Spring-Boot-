@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(254, 205, 165);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .content {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 10px 4px 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid #000000;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: rgb(251, 105, 98);
+        }
+
+        label {
+            font-size: 18px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: rgb(251, 105, 98);
+            color: #ffffff;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 18px;
+            color: #000000;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <h2>Create Quiz</h2>
+        <form th:action="@{/host/create-quiz}" th:object="${quiz}" method="post">
+            <label>Quiz Key: <input type="text" th:field="*{quizKey}" required/></label><br/>
+            <!-- Repeat the following block for each question -->
+            <div th:each="question, questionStatus : *{questions}">
+                <h3>Question [[${questionStatus.index + 1}]]</h3>
+                <label>Question: <input type="text" th:field="*{questions[__${questionStatus.index}__].question}" required/></label><br/>
+                <label>Option 1: <input type="text" th:field="*{questions[__${questionStatus.index}__].option1}" required/></label><br/>
+                <label>Option 2: <input type="text" th:field="*{questions[__${questionStatus.index}__].option2}" required/></label><br/>
+                <label>Option 3: <input type="text" th:field="*{questions[__${questionStatus.index}__].option3}" required/></label><br/>
+                <label>Option 4: <input type="text" th:field="*{questions[__${questionStatus.index}__].option4}" required/></label><br/>
+                <label>Answer: <input type="text" th:field="*{questions[__${questionStatus.index}__].ans}" required/></label><br/>
+            </div>
+            <button type="submit">Create Quiz</button>
+        </form>
+        <p th:if="${param.success}">Quiz created successfully!</p>
+        <a th:href="@{/host/dashboard}" class="continue-button">Back to Host Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

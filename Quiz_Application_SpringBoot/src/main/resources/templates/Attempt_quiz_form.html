@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Attempt Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(254, 205, 165);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .content {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 10px 4px 10px rgba(0, 0, 0, 0.1);
+            border: 5px solid #000000;
+        }
+
+        h4 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: rgb(251, 105, 98);
+        }
+
+        .failed {
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        .form-check-label {
+            font-size: 16px;
+        }
+
+        .btn-success {
+            background-color: rgb(251, 105, 98);
+            color: #ffffff;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-success:hover {
+            background-color: #0056b3;
+        }
+
+        .timer-container {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: rgb(251, 105, 98);
+  }
+
+   #timer {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid rgb(251, 105, 98);
+    border-radius: 5px;
+    background-color: white;
+  }
+  </style>
+</head>
+<body>
+<!-- Timer container -->
+<div class="timer-container">
+    <span id="timer">1:00</span>
+</div>
+
+<!-- Question and options section -->
+<div th:with="currentIndex=${currentQuestionIndex}">
+    <div th:if="${currentIndex >= 0}">
+        <div th:with="currentQuestion=${questions[currentIndex]}">
+            <h5>Question [[${currentIndex + 1}]]:</h5>
+            <p th:text="${currentQuestion.question}"></p>
+
+            <form th:action="@{/candidate/attemptingQuiz(quizKey=${quizKey}, currentQuestionIndex=${currentIndex + 1}, selectedOption=${currentQuestion != null ? currentQuestion.selectedOption : ''}, timeTaken=${currentQuestion.time_taken})}" method="post">
+
+                <div th:if="${currentQuestion != null}">
+                    <label>
+                        <input type="radio" name="selectedOption" th:value="${currentQuestion.option1}" />
+                        [[${currentQuestion.option1}]]
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="selectedOption" th:value="${currentQuestion.option2}" />
+                        [[${currentQuestion.option2}]]
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="selectedOption" th:value="${currentQuestion.option3}" />
+                        [[${currentQuestion.option3}]]
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="selectedOption" th:value="${currentQuestion.option4}" />
+                        [[${currentQuestion.option4}]]
+                    </label><br/><br/>
+                </div>
+
+                <!-- Next button if more questions are left -->
+                <div th:if="${currentIndex + 1 < questions.size()}">
+                    <button type="submit" class="btn-success">Next</button>
+                </div>
+
+                <!-- Submit button if all questions are answered -->
+                <div th:if="${currentIndex + 1 == questions.size()}">
+                    <button type="submit" class="btn-success">Submit Quiz</button>
+                </div>
+
+                <input type="hidden" name="selectedOption" th:value="${currentQuestion != null ? currentQuestion.selectedOption : ''}" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript section remains unchanged -->
+<script th:inline="javascript">
+  const timerElement = document.getElementById("timer");
+  let timeRemaining = 60;
+  let timerInterval;
+
+  function updateTimer() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    const formattedTime = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    timerElement.textContent = formattedTime;
+
+    if (timeRemaining <= 0) {
+      clearInterval(timerInterval);
+      const nextButton = document.querySelector(".btn-success");
+      if (nextButton) {
+        nextButton.click();
+      }
+    } else {
+      timeRemaining--;
+    }
+  }
+  timerInterval = setInterval(updateTimer, 1000);
+
+  const submitButton = document.querySelector('[type="submit"]');
+  if (submitButton) {
+    submitButton.addEventListener("click", () => clearInterval(timerInterval));
+  }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,4 @@
+com\Spring\Quiz_Application\repository\QuizRepository.class
+com\Spring\Quiz_Application\entity\Question.class
+com\Spring\Quiz_Application\entity\Quiz.class
+com\Spring\Quiz_Application\repository\QuestionRepository.class
